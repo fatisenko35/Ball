@@ -3,29 +3,49 @@
   <head>
     <title>Ball Game</title>
     <style>
-      .ball {
-        width: 50px;
-        height: 50px;
-        background-color: red;
-        position: absolute;
+      canvas {
+        border: 1px solid black;
       }
     </style>
   </head>
   <body>
-    <div style="min-width: 100vw; min-height: 100vh; display: flex; justify-content: center; align-items: center;">
-        <div class="ball"></div>
-    </div>
+    <canvas id="game" width="600" height="400"></canvas>
     <script>
+      // Get the canvas element and its context
+      var canvas = document.getElementById("game");
+      var ctx = canvas.getContext("2d");
+
+      // Create a ball object
+      var ball = {
+        x: 100,
+        y: 100,
+        radius: 25,
+        color: "red",
+        draw: function() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+          ctx.closePath();
+        }
+      };
+
       // Listen for devicemotion events
       window.addEventListener('devicemotion', function(event) {
         var x = event.accelerationIncludingGravity.x;
         var y = event.accelerationIncludingGravity.y;
 
         // Use the acceleration values to move the ball
-        var ball = document.querySelector(".ball");
-        ball.style.top = y + "px";
-        ball.style.left = x + "px";
+        ball.x += x;
+        ball.y += y;
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw the ball
+        ball.draw();
       });
     </script>
   </body>
 </html>
+
