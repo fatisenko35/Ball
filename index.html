@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ball Game</title>
+    <style>
+      .ball {
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        position: absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ball"></div>
+    <script>
+      // Listen for devicemotion events
+      window.addEventListener('devicemotion', function(event) {
+        var x = event.accelerationIncludingGravity.x;
+        var y = event.accelerationIncludingGravity.y;
+
+        // Use the acceleration values to move the ball
+        var ball = document.querySelector(".ball");
+        ball.style.top = y + "px";
+        ball.style.left = x + "px";
+      });
+    </script>
+  </body>
+</html>
